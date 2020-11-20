@@ -1,0 +1,6 @@
+name: openweathermap
+image:
+  repository: acr0containerexample.azurecr.io/weatherapp
+  tag: 0.0.1
+  pullPolicy: IfNotPresent
+port: 3000

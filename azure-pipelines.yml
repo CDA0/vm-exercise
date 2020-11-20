@@ -1,0 +1,27 @@
+pool:
+  vmImage: ubuntu-20.04
+
+variables:
+- group: spcreds
+
+stages:
+- stage: Infra
+  jobs:
+  - job: Deploy_Infra
+    steps:
+    - script: npm i
+    - script: npm run deploy
+      env:
+        ARM_CLIENT_ID: $(clientId)
+        ARM_CLIENT_SECRET: $(clientSecret)
+        ARM_SUBSCRIPTION_ID: $(subscriptionId)
+        ARM_TENANT_ID: $(tenantId)
+
+- stage: Weather_Application
+  jobs:
+  - job: Test_And_Build
+    steps:
+    - script: npm i
+    - script: cd node-app && npm i && npm test
+    - script: npm run lint
+    - script: buildah bud -t localhost/weatherapp:0.0.1 -f node-app/Containerfile node-app
