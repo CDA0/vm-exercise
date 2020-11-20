@@ -31,6 +31,8 @@ stages:
           --set controller.admissionWebhooks.patch.nodeSelector."beta\.kubernetes\.io/os"=linux \
           --kubeconfig kubeconfig
       displayName: Install Ingress
+    - publish: $(System.DefaultWorkingDirectory)/kubeconfig
+      artifact: kubeconfig
 
 - stage: Weather_Application
   jobs:
@@ -50,3 +52,16 @@ stages:
         docker://acr0containerexample.azurecr.io/weatherapp \
         --dest-creds $(clientId):$(clientSecret)
       displayName: Push Image
+
+- stage: Deploy_Weather_App
+  jobs:
+  - job: Deploy
+    steps:
+    - download: current
+      artifact: kubeconfig
+    - script: cd helm && helm template . > deploy.yaml
+      displayName: Helm template
+    - script: kubectl apply -f helm/deploy.yaml --kubeconfig kubeconfig
+      displayName: Deploy
+    - script: kubectl get services -n ingress-basic --kubeconfig kubeconfig
+      displayName: Get Services
