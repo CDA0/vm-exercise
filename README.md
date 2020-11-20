@@ -53,5 +53,6 @@ applied to the AKS cluster.
 * Healthchecks on services
 * App image is not versioned
 * All commits are on master :(
+* Couple of secrets stored in the repo...very bad.
 * This is not an exhaustive list but just other things that could be better in
   the context of a tech test.

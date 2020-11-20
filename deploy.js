@@ -9,11 +9,6 @@ const terraformStateKey = 'terraform.tfstate';
 const terraformStorageAccountName = 'stg0nonprod0tfstate';
 const terraformStorageAccountResourceGroupName = 'rg-vmexample-core';
 
-const {
-  ARM_CLIENT_ID: clientId,
-  ARM_CLIENT_SECRET: clientSecret,
-} = process.env;
-
 const deploy = async () => {
   const tf = new Terrajs({ terraformDir });
 
@@ -31,8 +26,6 @@ const deploy = async () => {
     var: {
       identifier: 'containerexample',
       location: 'ukwest',
-      clientId,
-      clientSecret,
     },
   });
 
