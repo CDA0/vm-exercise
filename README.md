@@ -42,3 +42,14 @@ remotely interesting or geographically aware.
 
 It uses a very basic helm template to generate a deploy yaml which is then
 applied to the AKS cluster.
+
+
+## Further work
+
+* Terraform needs validated
+* Security is awful
+* Bootstrap is not idempotent
+* Terraform could be tested
+* Healthchecks on services
+* This is not an exhaustive list but just other things that could be better in
+  the context of a tech test.

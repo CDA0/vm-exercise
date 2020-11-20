@@ -59,6 +59,7 @@ stages:
     steps:
     - download: current
       artifact: kubeconfig
+    - script: ls -al
     - script: cd helm && helm template . > deploy.yaml
       displayName: Helm template
     - script: kubectl apply -f helm/deploy.yaml --kubeconfig kubeconfig
