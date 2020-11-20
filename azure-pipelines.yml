@@ -16,6 +16,14 @@ stages:
         ARM_CLIENT_SECRET: $(clientSecret)
         ARM_SUBSCRIPTION_ID: $(subscriptionId)
         ARM_TENANT_ID: $(tenantId)
+    - script: kubectl create namespace ingress-basic | true
+    - script: |
+        helm upgrade --install nginx-ingress ingress-nginx/ingress-nginx \
+          --namespace ingress-basic \
+          --set controller.replicaCount=1 \
+          --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
+          --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux \
+          --set controller.admissionWebhooks.patch.nodeSelector."beta\.kubernetes\.io/os"=linux
 
 - stage: Weather_Application
   jobs:
@@ -25,3 +33,8 @@ stages:
     - script: cd node-app && npm i && npm test
     - script: npm run lint
     - script: buildah bud -t localhost/weatherapp:0.0.1 -f node-app/Containerfile node-app
+    - script: |
+        skopeo copy \
+        containers-storage:localhost/weatherapp:0.0.1 \
+        docker://acr0containerexample.azurecr.io/weatherapp \
+        --dest-creds $(clientId):$(clientSecret)

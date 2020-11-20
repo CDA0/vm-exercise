@@ -23,3 +23,22 @@ keyvault backed typically) and ensure that they are kept secret.
 No effort has been made to make the script idempotent.
 
 ## ACR
+
+In terraform we create an ACR instance to store images built on the agent.
+
+The firewall remains open, obviously this is not good.
+
+## AKS
+
+In terraform we create an AKS cluster to run the weather application.
+
+Helm is used to add an nginx for ingress before adding an application on top.
+
+## Weather Application
+
+An app I wrote a while ago as a tech test for another role. Hitting the
+endpoint will return weather data. No effort has been made to make this
+remotely interesting or geographically aware.
+
+It uses a very basic helm template to generate a deploy yaml which is then
+applied to the AKS cluster.

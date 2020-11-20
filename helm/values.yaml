@@ -1,4 +1,5 @@
 name: openweathermap
+namespace: ingress-basic
 image:
   repository: acr0containerexample.azurecr.io/weatherapp
   tag: 0.0.1
