@@ -33,6 +33,7 @@ stages:
       displayName: Install Ingress
     - script: |
         kubectl create secret docker-registry myregistrykey \
+          --kubeconfig kubeconfig \
           --docker-server=acr0containerexample.azurecr.io \
           --docker-username=$(clientId) \
           --docker-password=$(clientSecret) \
