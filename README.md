@@ -51,5 +51,6 @@ applied to the AKS cluster.
 * Bootstrap is not idempotent
 * Terraform could be tested
 * Healthchecks on services
+* App image is not versioned
 * This is not an exhaustive list but just other things that could be better in
   the context of a tech test.

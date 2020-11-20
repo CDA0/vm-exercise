@@ -60,9 +60,10 @@ stages:
     - download: current
       artifact: kubeconfig
     - script: ls -al
+    - script: ls -al ls $(Pipeline.Workspace)
     - script: cd helm && helm template . > deploy.yaml
       displayName: Helm template
-    - script: kubectl apply -f helm/deploy.yaml --kubeconfig kubeconfig
+    - script: kubectl apply -f helm/deploy.yaml --kubeconfig ls $(Pipeline.Workspace)/kubeconfig
       displayName: Deploy
-    - script: kubectl get services -n ingress-basic --kubeconfig kubeconfig
+    - script: kubectl get services -n ingress-basic --kubeconfig ls $(Pipeline.Workspace)/kubeconfig
       displayName: Get Services
