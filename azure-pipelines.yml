@@ -16,14 +16,15 @@ stages:
         ARM_CLIENT_SECRET: $(clientSecret)
         ARM_SUBSCRIPTION_ID: $(subscriptionId)
         ARM_TENANT_ID: $(tenantId)
-    - script: kubectl create namespace ingress-basic | true
+    - script: kubectl create namespace ingress-basic --kubeconfig kubeconfig | true
     - script: |
         helm upgrade --install nginx-ingress ingress-nginx/ingress-nginx \
           --namespace ingress-basic \
           --set controller.replicaCount=1 \
           --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
           --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux \
-          --set controller.admissionWebhooks.patch.nodeSelector."beta\.kubernetes\.io/os"=linux
+          --set controller.admissionWebhooks.patch.nodeSelector."beta\.kubernetes\.io/os"=linux \
+          --kubeconfig kubeconfig
 
 - stage: Weather_Application
   jobs:

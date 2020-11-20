@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const fs = require('fs');
 const path = require('path');
 const Terrajs = require('@cda0/terrajs');
 
@@ -39,9 +40,9 @@ const deploy = async () => {
     plan: 'terraform.tfplan',
   });
 
-  const outputs = await tf.output({ json: true });
+  const outputs = JSON.parse(await tf.output({ json: true }));
 
-  console.log(JSON.stringify(outputs, null, 2)); // eslint-disable-line no-console
+  fs.writeFileSync(path.join(process.cwd(), 'kubeconfig'), outputs.kube_config.value, 'utf8');
 };
 
 deploy()
