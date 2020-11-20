@@ -60,7 +60,7 @@ stages:
     - download: current
       artifact: kubeconfig
     - script: ls -al
-    - script: ls -al ls $(Pipeline.Workspace)
+    - script: ls -al $(Pipeline.Workspace)
     - script: cd helm && helm template . > deploy.yaml
       displayName: Helm template
     - script: kubectl apply -f helm/deploy.yaml --kubeconfig ls $(Pipeline.Workspace)/kubeconfig
