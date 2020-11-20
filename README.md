@@ -52,5 +52,6 @@ applied to the AKS cluster.
 * Terraform could be tested
 * Healthchecks on services
 * App image is not versioned
+* All commits are on master :(
 * This is not an exhaustive list but just other things that could be better in
   the context of a tech test.
