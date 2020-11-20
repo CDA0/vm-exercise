@@ -17,6 +17,7 @@ stages:
         ARM_SUBSCRIPTION_ID: $(subscriptionId)
         ARM_TENANT_ID: $(tenantId)
     - script: kubectl create namespace ingress-basic --kubeconfig kubeconfig | true
+    - script: helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
     - script: |
         helm upgrade --install nginx-ingress ingress-nginx/ingress-nginx \
           --namespace ingress-basic \
