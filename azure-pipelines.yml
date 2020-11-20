@@ -31,6 +31,13 @@ stages:
           --set controller.admissionWebhooks.patch.nodeSelector."beta\.kubernetes\.io/os"=linux \
           --kubeconfig kubeconfig
       displayName: Install Ingress
+    - script: |
+        kubectl create secret docker-registry myregistrykey \
+          --docker-server=acr0containerexample.azurecr.io \
+          --docker-username=$(clientId) \
+          --docker-password=$(clientSecret) \
+          --docker-email=noten@email.com -n ingress-basic | true
+      displayName: Set imagepullsecret
     - publish: $(System.DefaultWorkingDirectory)/kubeconfig
       artifact: kubeconfig
 
